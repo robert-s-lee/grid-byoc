@@ -1,0 +1,17 @@
+
+name: "byoc eu-west-2-g3-c5"
+
+on:
+  workflow_dispatch:
+    inputs:
+      aws-region:
+        required: true
+        default: 'eu-west-2'
+      aws-instance-types:
+        required: true
+        default: 'c5.4xlarge,g3.16xlarge'
+
+jobs:
+  gridai-byoc:
+    runs-on: ubuntu-latest
+    
