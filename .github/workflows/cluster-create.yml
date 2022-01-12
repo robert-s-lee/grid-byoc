@@ -1,5 +1,5 @@
 
-name: "byoc eu-west-2-g3-c5"
+name: "cluster create simple"
 
 on:
   workflow_dispatch:
@@ -9,10 +9,10 @@ on:
         default: c$(date '+%y%m%d-%H%M%S')
       aws-region:
         required: true
-        default: eu-west-2
+        default: us-east-1
       grid-args:
         required: true
-        default: --cost-savings --instance-types c5.4xlarge,g3.16xlarge
+        default: --cost-savings --instance-types g4dn.xlarge,t2.medium
       grid-url:
         required: false
         default: 
