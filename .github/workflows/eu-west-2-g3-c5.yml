@@ -28,16 +28,16 @@ jobs:
     steps:
       - uses: gridai-actions/gridai-login@v0
         with:
-          python-version: ${{ inputs.python-version }}
-          python-venv: ${{ inputs.python-venv }}
-          grid-url: ${{ inputs.grid-url }}
+          python-version: ${{ github.event.inputs.python-version }}
+          python-venv: ${{ github.event.inputs.python-venv }}
+          grid-url: ${{ github.event.inputs.grid-url }}
           gridai-username: ${{ secrets.GRIDAI_USERNAME }} 
           gridai-key: ${{ secrets.GRIDAI_KEY }}
       - id: gridai-obj-create
         uses: gridai-actions/gridai-byoc@main
         with:
-          byoc-region: ${{ inputs.aws-region }}
-          grid-args: ${{ inputs.grid-args }}
-          success-status: "[running|failed]"
+          cluster-name: ${{ github.event.inputs.name }} 
+          byoc-region: ${{ github.event.inputs.aws-region }}
+          grid-args: ${{ github.event.inputs.grid-args }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}          
