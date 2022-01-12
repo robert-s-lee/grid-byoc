@@ -4,14 +4,38 @@ name: "byoc eu-west-2-g3-c5"
 on:
   workflow_dispatch:
     inputs:
+      name:
+        required: true
+        default: c$(date '+%y%m%d-%H%M%S')
       aws-region:
         required: true
         default: 'eu-west-2'
-      aws-instance-types:
+      grid-args:
         required: true
-        default: 'c5.4xlarge,g3.16xlarge'
-
+        default: '--cost-savings --instance-types c5.4xlarge,g3.16xlarge'
+      grid-url:
+        required: true
+        default: 'platform.grid.ai'
+      python-version:  
+        required: true
+        default: '3.8'
+      python-venv:
+        required: true
+        default: 'venv'
 jobs:
   gridai-byoc:
     runs-on: ubuntu-latest
-    
+      - uses: gridai-actions/gridai-login@main
+        with:
+          python-version: ${{ inputs.python-version }}
+          python-venv: ${{ inputs.python-venv }}
+          gridai-username: ${{ secrets.GRIDAI_USERNAME }} 
+          gridai-key: ${{ secrets.GRIDAI_KEY }}
+      - id: gridai-obj-create
+        uses: gridai-actions/gridai-byoc@main
+        with:
+          byoc-region: ${{ inputs.aws-region }}
+          grid-args: ${{ inputs.grid-args }}
+          success-status: "[running|failed]"
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}          
