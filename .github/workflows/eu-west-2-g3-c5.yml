@@ -32,7 +32,6 @@ jobs:
           python-venv: ${{ inputs.python-venv }}
           gridai-username: ${{ secrets.GRIDAI_USERNAME }} 
           gridai-key: ${{ secrets.GRIDAI_KEY }}
-          gridai-key: ${{ secrets.GRIDAI_KEY }}
           grid-url: ${{ inputs.grid-url }}
       - id: gridai-obj-create
         uses: gridai-actions/gridai-byoc@main
