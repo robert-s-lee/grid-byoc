@@ -20,18 +20,20 @@ on:
         required: true
         default: '3.8'
       python-venv:
-        required: true
+        required: false
         default: 'venv'
 jobs:
   gridai-byoc:
     runs-on: ubuntu-latest
     steps:
-      - uses: gridai-actions/gridai-login@main
+      - uses: gridai-actions/gridai-login@v0
         with:
           python-version: ${{ inputs.python-version }}
           python-venv: ${{ inputs.python-venv }}
           gridai-username: ${{ secrets.GRIDAI_USERNAME }} 
           gridai-key: ${{ secrets.GRIDAI_KEY }}
+          gridai-key: ${{ secrets.GRIDAI_KEY }}
+          grid-url: ${{ inputs.grid-url }}
       - id: gridai-obj-create
         uses: gridai-actions/gridai-byoc@main
         with:
