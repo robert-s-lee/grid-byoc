@@ -30,9 +30,9 @@ jobs:
         with:
           python-version: ${{ inputs.python-version }}
           python-venv: ${{ inputs.python-venv }}
+          grid-url: ${{ inputs.grid-url }}
           gridai-username: ${{ secrets.GRIDAI_USERNAME }} 
           gridai-key: ${{ secrets.GRIDAI_KEY }}
-          grid-url: ${{ inputs.grid-url }}
       - id: gridai-obj-create
         uses: gridai-actions/gridai-byoc@main
         with:
