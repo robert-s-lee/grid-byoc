@@ -25,6 +25,7 @@ on:
 jobs:
   gridai-byoc:
     runs-on: ubuntu-latest
+    steps:
       - uses: gridai-actions/gridai-login@main
         with:
           python-version: ${{ inputs.python-version }}
