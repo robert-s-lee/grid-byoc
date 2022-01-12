@@ -15,7 +15,7 @@ on:
         default: '--cost-savings --instance-types c5.4xlarge,g3.16xlarge'
       grid-url:
         required: true
-        default: 'platform.grid.ai'
+        default: 'https://platform.grid.ai'
       python-version:  
         required: true
         default: '3.8'
