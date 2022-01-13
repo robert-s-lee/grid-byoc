@@ -8,7 +8,7 @@ Grid.ai [BYOC Cluster creation](https://docs.grid.ai/platform/upgrades/adding-cu
   - GRIDAI_KEY
   - GRIDAI_USERNAME
 - Fill out [GitHub Actions GUI form](https://github.com/robert-s-lee/grid-byoc/actions/workflows/cluster-create.yml) is available for use.  
-![GHA Form](images/gha-form.png?v=200&s=200)
+![GHA Form](images/gha-form.png){height=50% width=50%}
 
 
 
