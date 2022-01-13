@@ -2,6 +2,14 @@ Grid.ai [BYOC Cluster creation](https://docs.grid.ai/platform/upgrades/adding-cu
 
 # Create Cluster Simple
 
-[GitHub Actions GUI form](https://github.com/robert-s-lee/grid-byoc/actions/workflows/cluster-create.yml) is available for use.  
+- setup GitHub Secrets
+  - AWS_ACCESS_KEY_ID
+  - AWS_SECRET_ACCESS_KEY
+  - GRIDAI_KEY
+  - GRIDAI_USERNAME
+- Fill out [GitHub Actions GUI form](https://github.com/robert-s-lee/grid-byoc/actions/workflows/cluster-create.yml) is available for use.  
+![GHA Form](images/gha-form.png)
+
+
 
 

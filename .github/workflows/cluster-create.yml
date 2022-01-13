@@ -23,7 +23,7 @@ on:
         options: 
         -
         - https://platform.grid.ai
-        - https://staging.grid.ai (
+        - https://staging.grid.ai
         - https://qa.grid.ai 
         description: set GRID_URL 
       python-version:  
