@@ -12,6 +12,8 @@ This allows Grid.ai to create the AWS EKS cluster, then link this cluster to Gri
 - Go to [GitHub Actions GUI form](https://github.com/robert-s-lee/grid-byoc/actions/workflows/cluster-create.yml) 
   - Fill out and click `Run Workflow`  
 ![GHA Form](images/gha-form.png)
+- Wait about 20 min the script to finish.
+  - the GitHub Action log will show the cluster name.
 
 # Create Cluster with manual AWS EKS
 
