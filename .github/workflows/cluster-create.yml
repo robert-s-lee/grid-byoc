@@ -11,7 +11,7 @@ on:
       grid-args:
         required: true
         default: --cost-savings --instance-types g4dn.xlarge,t2.medium
-        description: Arguments passed to `grid clusters aws`
+        description: Arguments to `grid clusters aws` cmd
       aws-region:
         required: true
         default: us-east-1
@@ -27,6 +27,7 @@ on:
       python-venv:
         required: false
         default: venv
+        type: choice
         options: 
         - venv
         -  
