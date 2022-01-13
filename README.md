@@ -2,6 +2,6 @@ Grid.ai [BYOC Cluster creation](https://docs.grid.ai/platform/upgrades/adding-cu
 
 # Create Cluster Simple
 
-[GitHub Actions GUI form](./.github/workflows/cluster-create.yml) is available for use.  
+[GitHub Actions GUI form](./grid-byoc/actions/workflows/cluster-create.yml) is available for use.  
 
 
