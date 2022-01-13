@@ -7,6 +7,7 @@ on:
       name:
         required: true
         default: c$(date '+%y%m%d-%H%M%S')
+        description: Name of the Grid.ai BYOC cluster to create
       aws-region:
         required: true
         default: us-east-1
