@@ -19,29 +19,29 @@ on:
       grid-url:
         required: false
         default: 
-        type: choice
-        options: 
-        -
-        - https://platform.grid.ai
-        - https://staging.grid.ai
-        - https://qa.grid.ai 
         description: set GRID_URL 
+#        type: choice
+#        options: 
+#        -
+#        - https://platform.grid.ai
+#        - https://staging.grid.ai
+#        - https://qa.grid.ai 
       python-version:  
         required: true
         default: 3.8
-        type: choice
-        options: 
-        - 3.8
-        - 3.9
         description: set python version 
+#        type: choice
+#        options: 
+#        - 3.8
+#        - 3.9
       python-venv:
         required: false
         default: venv
-        type: choice
-        options: 
-        - venv
-        -  
         description: use python venv or not
+#        type: choice
+#        options: 
+#        - venv
+#        -  
 jobs:
   gridai-byoc:
     runs-on: ubuntu-latest
