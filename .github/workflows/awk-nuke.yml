@@ -18,8 +18,8 @@ jobs:
       - uses: aws-actions/setup-sam@v1
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          admin-aws-access-key-id: ${{ secrets.admin-aws-access-key-id }}
-          admin-aws-secret-access-key: ${{ secrets.admin-aws-secret-access-key }}
+          admin-aws-access-key-id: ${{ secrets.ADMIN_AWS_ACCESS_KEY_ID }}
+          admin-aws-secret-access-key: ${{ secrets.ADMIN_AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ github.event.inputs.aws-region }}     
       - run: |
           echo $HOME
@@ -31,8 +31,8 @@ jobs:
           mkdir ~/.aws
           ls ~/.aws
           echo "[default]" >> ~/.aws/credentials
-          echo "aws_access_key_id = ${{ secrets.admin-aws-access-key-id }}" >> ~/.aws/credentials 
-          echo "aws_secret_access_key = ${{ secrets.admin-aws-secret-access-key }}" >> ~/.aws/credentials 
+          echo "aws_access_key_id = ${{ secrets.ADMIN_AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials 
+          echo "aws_secret_access_key = ${{ secrets.ADMIN_AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials 
           cat ~/.aws/credentials
           echo "[profile default]"  >> ~/.aws/config
           echo "region=${{ github.event.inputs.aws-region }}" >> ~/.aws/config
