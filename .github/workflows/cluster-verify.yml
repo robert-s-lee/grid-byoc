@@ -1,16 +1,21 @@
 
-name: "cluster delete"
+name: "cluster verify run and session"
 
 on:
   workflow_dispatch:
     inputs:
-      name:
+      cluster-name:
         required: true
+        default: c$(date '+%y%m%d-%H%M%S')
         description: Grid.ai BYOC cluster name
       grid-args:
-        required: false
-        default: --force
-        description: Arguments to `grid delete cluster` cmd
+        required: true
+        default: --cost-savings --instance-types g4dn.xlarge,t2.medium
+        description: Arguments to `grid clusters aws` cmd
+      aws-region:
+        required: true
+        default: us-east-1
+        description: Automagically passed as `--region`
       grid-url:
         required: false
         default: 
@@ -48,6 +53,5 @@ jobs:
           grid-url: ${{ github.event.inputs.grid-url }}
           gridai-username: ${{ secrets.GRIDAI_USERNAME }} 
           gridai-key: ${{ secrets.GRIDAI_KEY }}
-      - id: gridai-obj-create
-        run:
-          gridai.py cli "grid delete cluster ${{ github.event.inputs.grid-args }} ${{ github.event.inputs.name }} " --gha
+      - run: |
+        grid instance-types --cluster ${{ github.event.inputs.cluster-name }}       
