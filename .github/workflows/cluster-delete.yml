@@ -9,7 +9,7 @@ on:
         description: Grid.ai BYOC cluster name
       grid-args:
         required: false
-        default: --force
+        default: 
         description: Arguments to `grid delete cluster` cmd
       grid-url:
         required: false
