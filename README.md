@@ -1,6 +1,7 @@
 Grid.ai [BYOC Cluster creation](https://docs.grid.ai/platform/upgrades/adding-custom-cloud-credentials) demo.
 
-# Create Cluster Simple
+# Create
+## Create Cluster Simple
 
 This allows Grid.ai to create the AWS EKS cluster, then link this cluster to Grid.ai control plane.  
 
@@ -15,8 +16,11 @@ This allows Grid.ai to create the AWS EKS cluster, then link this cluster to Gri
 - Wait about 20 min the script to finish.
   - the GitHub Action log will show the cluster name.
 
-# Create Cluster with manual AWS EKS
+## Create Cluster with manual AWS EKS
 
 This allows AWS EKS cluster create by you, then link this cluster to Grid.ai control plane. 
 
+# Delete
 
+
+# Update

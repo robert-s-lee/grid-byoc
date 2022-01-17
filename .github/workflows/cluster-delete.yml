@@ -1,0 +1,53 @@
+
+name: "cluster delete"
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        required: true
+        description: Grid.ai BYOC cluster name
+      grid-args:
+        required: true
+        default: --force
+        description: Arguments to `grid delete cluster` cmd
+      grid-url:
+        required: false
+        default: 
+        description: set GRID_URL 
+#        type: choice
+#        options: 
+#        -
+#        - https://platform.grid.ai
+#        - https://staging.grid.ai
+#        - https://qa.grid.ai 
+      python-version:  
+        required: true
+        default: 3.8
+        description: set python version 
+#        type: choice
+#        options: 
+#        - 3.8
+#        - 3.9
+      python-venv:
+        required: false
+        default: venv
+        description: use python venv or not
+#        type: choice
+#        options: 
+#        - venv
+#        -  
+jobs:
+  gridai-byoc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: gridai-actions/gridai-login@v0
+        with:
+          python-version: ${{ github.event.inputs.python-version }}
+          python-venv: ${{ github.event.inputs.python-venv }}
+          grid-url: ${{ github.event.inputs.grid-url }}
+          gridai-username: ${{ secrets.GRIDAI_USERNAME }} 
+          gridai-key: ${{ secrets.GRIDAI_KEY }}
+      - id: gridai-obj-create
+        run:
+          gridai.py cli "grid delete cluster ${{ github.event.inputs.grid-args }} ${{ github.event.inputs.name }} " --gha

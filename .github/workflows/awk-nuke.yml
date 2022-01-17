@@ -1,0 +1,59 @@
+
+name: "aws nuke"
+
+on:
+  workflow_dispatch:
+    inputs:
+      aws-region:
+        required: true
+        default: us-east-1
+      awk-nuke-version:  
+        required: true
+        default: v2.16.0
+        description: aws nuke https://github.com/rebuy-de/aws-nuke 
+jobs:
+  gridai-byoc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aws-actions/setup-sam@v1
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          admin-aws-access-key-id: ${{ secrets.admin-aws-access-key-id }}
+          admin-aws-secret-access-key: ${{ secrets.admin-aws-secret-access-key }}
+          aws-region: ${{ github.event.inputs.aws-region }}     
+      - run: |
+          echo $HOME
+      - run: |
+          url=https://github.com/rebuy-de/aws-nuke/releases/download/${{ github.event.inputs.awk-nuke-version }}/aws-nuke-${{ github.event.inputs.awk-nuke-version }}-linux-amd64.tar.gz
+          wget -c ${url} -O - | sudo tar -xz -C $HOME/bin
+          echo ${HOME/bin} >> $GITHUB_PATH
+      - run: |
+          mkdir ~/.aws
+          ls ~/.aws
+          echo "[default]" >> ~/.aws/credentials
+          echo "aws_access_key_id = ${{ secrets.admin-aws-access-key-id }}" >> ~/.aws/credentials 
+          echo "aws_secret_access_key = ${{ secrets.admin-aws-secret-access-key }}" >> ~/.aws/credentials 
+          cat ~/.aws/credentials
+          echo "[profile default]"  >> ~/.aws/config
+          echo "region=${{ github.event.inputs.aws-region }}" >> ~/.aws/config
+          echo "output=json" >> ~/.aws/config
+          cat ~/.aws/config     
+      - run: |
+          cat >aws-nuke.cfg <<EOF
+          accounts:
+            "${{ secrets.aws-account-id }}":
+              filters:
+                IAMUser:
+                - "rslee-admin"
+                - "grid-sangkyulee"
+                IAMUserPolicyAttachment:
+                - "rslee-admin -> AdministratorAccess"
+                - "rslee-admin -> IAMFullAccess"
+                - "grid-sangkyulee -> IAMFullAccess"
+                IAMUserAccessKey:
+                - "rslee-admin -> "
+                - "grid-sangkyulee -> "
+          EOF
+      - run: |
+          cat aws-nuke.cfg
+          awk-nuke-${{ github.event.inputs.awk-nuke-version }} --profile default --force -e 
