@@ -1,16 +1,21 @@
 
-name: "cluster delete"
+name: "cluster create simple"
 
 on:
   workflow_dispatch:
     inputs:
-      cluster-name:
+      name:
         required: true
+        default: c$(date '+%y%m%d-%H%M%S')
         description: Grid.ai BYOC cluster name
       grid-args:
-        required: false
-        default: 
-        description: Arguments to `grid delete cluster` cmd
+        required: true
+        default: --cost-savings --instance-types g4dn.xlarge,t2.medium
+        description: Arguments to `grid clusters aws` cmd
+      aws-region:
+        required: true
+        default: us-east-1
+        description: Automagically passed as `--region`
       grid-url:
         required: false
         default: 
@@ -49,14 +54,20 @@ jobs:
           gridai-username: ${{ secrets.GRIDAI_USERNAME }} 
           gridai-key: ${{ secrets.GRIDAI_KEY }}
       - id: gridai-obj-create
-        run:
-          gridai.py cli "grid delete cluster ${{ github.event.inputs.grid-args }} ${{ github.event.inputs.cluster-name }} " --gha
+        uses: gridai-actions/gridai-byoc-manual-eks@main
+        with:
+          cluster-name: ${{ github.event.inputs.name }} 
+          byoc-region: ${{ github.event.inputs.aws-region }}
+          grid-args: ${{ github.event.inputs.grid-args }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}          
       - id: gridai-obj-status
         run: |
-          gridai.py status_clus ${{ github.event.inputs.cluster-name }} --filter1_len 0 --status3 ".*" --max_total_retry_cnt 120 --max_some_match_cnt 120 --gha True
+          # failed can flipped to running.  check 3 times for flip flop.
+          gridai.py status_clus "${{ steps.gridai-obj-create.outputs.obj-id }}" --min_all_match_cnt 3 --status3 "running|failed" --gha 
         shell: bash
       - run: |
-          if [ "${{ steps.gridai-obj-status.outputs.match-status }}" != "" ]; then
+          if [ "${{ steps.gridai-obj-status.outputs.match-status }}" != "running" ]; then
             exit 1
           fi             
-        shell: bash    
+        shell: bash          

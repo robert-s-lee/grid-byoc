@@ -61,3 +61,13 @@ jobs:
           grid-args: ${{ github.event.inputs.grid-args }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}          
+      - id: gridai-obj-status
+        run: |
+          # failed can flipped to running.  check 3 times for flip flop.
+          gridai.py status_clus "${{ steps.gridai-obj-create.outputs.obj-id }}" --min_all_match_cnt 3 --status3 "running|failed" --gha 
+        shell: bash
+      - run: |
+          if [ "${{ steps.gridai-obj-status.outputs.match-status }}" != "running" ]; then
+            exit 1
+          fi             
+        shell: bash          
